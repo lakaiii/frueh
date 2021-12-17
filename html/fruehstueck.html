@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>Ficdown.js Test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.min.css">
+    <style>
+      a.disabled {
+        color: #999;
+      }
+      a.disabled.chosen {
+        color: #000;
+      }
+      a.disabled:hover {
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id='source' style='display: none;'>
+# [Zum Frühstück](/vorspiel)
+
+Hach, wie schön! Das Königinnenspielzeug.
+
+## [Vorspiel]("Wir starten ... langsam.")
+
+Weiter geht es mit [Masturbieren](/masturbieren).
+
+Oder habe ich heute keine Lust? Keine Ahnung, erstmal
+ [Schmerzen](/schmerzen).
+
+Lieber gleich [lecken](/blasen).
+
+## Masturbieren
+
+Schön, einen Moment Pause.
+
+Jetzt viellen noch [Schmerzen](/schmerzen)?
+Oder lieber gleich [Blasen](/blasen)?
+Oder [weitermasturbieren](/weitermasturbieren)?
+
+## Schmerzen
+
+Sehr gut, er hat die Wahl.
+Ledergurt?
+
+Und vielleicht auf den [Schwanz](/schwanz-schlagen)?
+Oder vielleicht auf den [Po](/po-schlagen)?
+Oder gar ins [Gesicht](/gesicht-schlagen)?
+Oder lieber gleich [Blasen](/blasen)?
+
+## Gesicht schlagen
+
+Jetzt geht's ans [Blasen](/blasen).
+Oder vielleicht auf den [Po](/po-schlagen)?
+
+## Po schlagen
+
+Jetzt geht's ans [Blasen](/blasen).
+Und vielleicht auf den [Schwanz](/schwanz-schlagen)?
+
+## Schwanz schlagen
+
+Jetzt geht's ans [Blasen](/blasen).
+Und vielleicht ins [Gesicht](/gesicht-schlagen)?
+
+## Blasen
+
+Ach schön. Schön langsam.
+
+Er zittert, er ist reif. Es kann losgehen mit dem [Lakaienorgasmus](/orgasmus).
+
+
+## Orgasmus
+
+Fertig!
+
+
+## Weitermasturbieren
+
+Wie wünschst Du es Dir, Lakai?
+
+Unter der [Decke](/bedeckt)? 
+[Halbbedeckt](/halbbedeckt)?
+[Nackt](/nackt)? 
+
+## Bedeckt
+
+So, jetzt aber [weiter](/genug-selbstbefriedigung)
+
+## Halbbedeckt
+
+Möchtest Du meine [Möse sehen](/nackt)?
+Traust Du Dich nicht, fühlst Dich so [sicherer](/gekommen)?
+
+## Nackt
+
+Tut gut, [aufsitzen](/aufsitzen)?
+Nicht so viel [Aufwand](/gekommen).
+
+## Aufsitzen
+
+Auch mal ein bisschen drin. Fühlt sich [gut an](/gekommen).
+
+## Gekommen
+
+Hmmm, schön, riech mal, Lakai!
+
+Und nun [genug](/genug-selbstbefriedigung).
+
+## Genug Selbstbefriedigung.
+
+Jetzt viellen noch [Schmerzen](/schmerzen)?
+Oder lieber gleich [Blasen](/blasen)?
+
+
+
+
+    </textarea>
+    <div id='game' />
+    <script src='2.0.4/ficdown.min.js'></script>
+    <script>
+      var player = new Ficdown({
+        id: 'game',
+        source: document.getElementById('source').value,
+        scroll: false,
+        startText: "Los geht's....",
+        endMarkdown: `# Hmmmmmm
+
+[Nochmal?](restart())
+
+       `
+      });
+      player.play();
+    </script>
+  </body>
+</html>
