@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- vim: set wrap : -->
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>Lakai zum Frühstück</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.min.css">
+    <style>
+      a.disabled {
+        color: #999;
+      }
+      a.disabled.chosen {
+        color: #88F;
+      }
+      a.disabled:hover {
+        cursor: not-allowed;
+      }
+      h1, h2 { font-size: 100%; font-weight: normal;  }
+    </style>
+  </head>
+  <body>
+<div id="game" />
+<script src="2.0.4/ficdown.min.js"></script>
+    <script>
+
+        fetch(document.location.hash.substr(1)+'?cache='+Date.now())
+            .then( response => response.blob())
+            .then( blob => blob.text())
+            .then( function(txt) { 
+                     const parts = txt.split("\n}\n\n");
+                     var data = { 
+                                    startText: "Los geht's....",
+                                    endMarkdown: "\n# Ende\n\n[Nochmal?](restart())\n",
+                                    title: "Geschichtentitel ",
+                                    scroll: false
+                                 };
+                     var story;
+                     if (parts.length == 1) {
+                          story = parts[0];
+                     } else {
+                          story = parts[1];
+                                 data = Object.assign(data, JSON.parse(parts[0]+"}"));
+                     }
+                     var player = new Ficdown({
+                        id: "game",
+                        source: story,
+                        scroll: data.scroll,
+                        startText: data.startText,
+                        html: true,
+                        endMarkdown: data.endMarkdown,
+                        start: function() { console.log("start") },
+                        finish: function() { console.log("finish") },
+                      });
+                    player.play();
+                    document.title = data.title;
+                    });
+    </script>
+  </body>
+</html>
