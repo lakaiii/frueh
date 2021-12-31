@@ -16,10 +16,25 @@
         cursor: not-allowed;
       }
       h1, h2 { font-size: 100%; font-weight: normal;  }
+      
+      .hilight { animation: blink 1.5s ease-in-out 1;  }
+
+      @keyframes blink {
+          0% { background-color: transparent; }
+          50% { background-color: yellow; }
+          100% { background-color: transparent; }
+      }
+
+      #navi { opacity: 0.3; font-size: 80%; width: 100%; }
+      #navi:hover { opacity: 0.8; }
+      #navi a:link { text-decoration: none; }
+      #game {}
     </style>
   </head>
   <body>
-<div id="game" />
+  <div id="game"></div>
+  <div id="navi"></div>
+  <div>
 <script src="2.0.4/ficdown.min.js"></script>
     <script>
 
@@ -54,6 +69,19 @@
                     player.play();
                     document.title = data.title;
                     });
+
+        window.path = [];
+
+        document.getElementById("game").addEventListener("click", function(event) {
+                    let p = window.path;
+                    p.push(event.target);
+                    let items = [];
+                    window.path.forEach(function(i,a) { items.push(`<a onMouseOver="window.path[${a}].classList.add(&quot;hilight&quot;);" onMouseOut="window.path[${a}].classList.remove(&quot;hilight&quot;);" onClick="const a=window.path[${a}];a.classList.remove(&quot;hilight&quot;);a.scrollIntoView();window.setTimeout(function() { a.classList.add(&quot;hilight&quot;) }, 200);">(${i.innerHTML})</a>`); });
+
+                    document.getElementById("navi");
+                    navi.innerHTML = items.join(" &middot; ");
+                    
+                }, useCapture=true);
     </script>
   </body>
 </html>
