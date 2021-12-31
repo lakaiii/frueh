@@ -63,24 +63,38 @@
                         startText: data.startText,
                         html: true,
                         endMarkdown: data.endMarkdown,
-                        start: function() { console.log("start") },
-                        finish: function() { console.log("finish") },
+                        start: function() { 
+                                    console.log("start");
+                                    if (window.path.length > 1) {
+                                                const last = window.path[window.path.length-1];
+                                                window.path = [ last ];
+                                                renderNavigation();
+                                    };
+                                document.body.classList.remove("play-finished")
+                                },
+                        finish: function() { console.log("finish"); document.body.classList.add("play-finished"); },
                       });
-                    player.play();
                     document.title = data.title;
+                    player.play();
                     });
 
         window.path = [];
 
-        document.getElementById("game").addEventListener("click", function(event) {
-                    let p = window.path;
-                    p.push(event.target);
+        function renderNavigation(s) {
                     let items = [];
                     window.path.forEach(function(i,a) { items.push(`<a onMouseOver="window.path[${a}].classList.add(&quot;hilight&quot;);" onMouseOut="window.path[${a}].classList.remove(&quot;hilight&quot;);" onClick="const a=window.path[${a}];a.classList.remove(&quot;hilight&quot;);a.scrollIntoView();window.setTimeout(function() { a.classList.add(&quot;hilight&quot;) }, 200);">(${i.innerHTML})</a>`); });
 
                     document.getElementById("navi");
-                    navi.innerHTML = items.join(" &middot; ");
-                    
+                    if (typeof s == "undefined") {
+                                s='';
+                    }
+                    navi.innerHTML = s + items.join(" &middot; ");
+        }
+
+        document.getElementById("game").addEventListener("click", function(event) {
+                    let p = window.path;
+                    p.push(event.target);
+                    renderNavigation();
                 }, useCapture=true);
     </script>
   </body>
