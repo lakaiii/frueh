@@ -2,8 +2,9 @@
 <!-- vim: set wrap : -->
 <html lang='en'>
   <head>
+    <!-- 100% transparent gif --><link rel="icon" type="image/gif" sizes="16x16" href="data:image/gif;base64,R0lGODlhEAAQAIAAAAAAAAAAACH+BG5hZGEAIfkEAQoAAQAsAAAAABAAEABAAg6Mj6nL7Q+jnLTai7M+BQA7" />
     <meta charset='utf-8'>
-    <title>Lakai zum Frühstück</title>
+    <title>ficdown</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.min.css">
     <style>
       a.disabled {
@@ -37,6 +38,24 @@
   <div>
 <script src="2.0.4/ficdown.min.js"></script>
     <script>
+
+        function template(strings, ...keys) {
+          return (function(...values) {
+            let dict = values[values.length - 1] || {};
+            let result = [strings[0]];
+            keys.forEach(function(key, i) {
+              let value = Number.isInteger(key) ? values[key] : dict[key];
+              result.push(value, strings[i + 1]);
+            });
+            return result.join('');
+          });
+        }
+        
+        navItem=template`<a 
+         onMouseOver="window.path[${0}].classList.add(&quot;hilight&quot;);" 
+         onMouseOut="window.path[${0}].classList.remove(&quot;hilight&quot;);" 
+         onClick="const a=window.path[${0}]; a.classList.remove(&quot;hilight&quot;);a.scrollIntoView();window.setTimeout(function() { a.classList.add(&quot;hilight&quot;) }, 200);"
+         >${1}</a>`;
 
         fetch(document.location.hash.substr(1)+'?cache='+Date.now())
             .then( response => response.blob())
@@ -80,21 +99,23 @@
 
         window.path = [];
 
-        function renderNavigation(s) {
+        function renderNavigation(param) {
                     let items = [];
-                    window.path.forEach(function(i,a) { items.push(`<a onMouseOver="window.path[${a}].classList.add(&quot;hilight&quot;);" onMouseOut="window.path[${a}].classList.remove(&quot;hilight&quot;);" onClick="const a=window.path[${a}];a.classList.remove(&quot;hilight&quot;);a.scrollIntoView();window.setTimeout(function() { a.classList.add(&quot;hilight&quot;) }, 200);">(${i.innerHTML})</a>`); });
-
+                    window.path.forEach(function(i,e) { items.push(navItem(e,i.innerHTML)); });
                     document.getElementById("navi");
-                    if (typeof s == "undefined") {
-                                s='';
-                    }
-                    navi.innerHTML = s + items.join(" &middot; ");
+                    param = Object.assign( { prefix: "(", postfix: ")", separator: ") &middot; (" }, param);
+                    navi.innerHTML = param.prefix + items.join(param.separator) + param.postfix;
         }
 
         document.getElementById("game").addEventListener("click", function(event) {
                     let p = window.path;
+                    let t = event.target;
+                    if ((t.tagName === "A") && (t.classList.length == 0)) {
                     p.push(event.target);
                     renderNavigation();
+       } else {
+                   console.log(`${t.tagName} ${t.classList}`);
+       }
                 }, useCapture=true);
     </script>
   </body>
