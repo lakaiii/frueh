@@ -25,11 +25,45 @@
           50% { background-color: yellow; }
           100% { background-color: transparent; }
       }
+      
+      @keyframes dreamin {
+          0% { opacity: 0; }
+          10% { opacity: 0.4; }
+          90% { opacity: 0.4;}
+          100% { opacity: 0; }
+      }
+
+      @keyframes dreamlow {
+          0% { opacity: 0; }
+          10% { opacity: 0.1; }
+          90% { opacity: 0.1;}
+          100% { opacity: 0; }
+      }
+
+      video { 
+          animation: dreamlow 1s ease-in-out; 
+      }
 
       #navi { opacity: 0.3; font-size: 80%; width: 100%; }
       #navi:hover { opacity: 0.8; }
       #navi a:link { text-decoration: none; }
-      #game {}
+      #game {
+          padding: 0.2em; 
+      }
+      .invisible {
+          display: none; 
+      }
+      .fixed {
+          padding: 0.5em;
+          position: absolute;
+          width: 30vw;
+          z-index: -100;
+      }
+
+      .hidden {
+          visibility: hidden;
+      }
+
     </style>
   </head>
   <body>
@@ -116,6 +150,12 @@
        } else {
                    console.log(`${t.tagName} ${t.classList}`);
        }
+                }, useCapture=true);
+       document.getElementById("game").addEventListener("animationend", function(event) {
+                   const el = event.srcElement;
+                   if (el.tagName == "VIDEO") {
+                               el.classList.add("hidden");
+                   }
                 }, useCapture=true);
     </script>
   </body>
