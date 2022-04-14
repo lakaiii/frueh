@@ -25,6 +25,7 @@
       }
 
 
+
     @media (orientation: portrait) {
     body { font-size: 3vw; }
     .scroll-overlay { 
@@ -34,7 +35,7 @@
     bottom: 2em;
     position: absolute;
     z-index: 100;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
     background-color: white;
     opacity: 0.9;
@@ -54,7 +55,7 @@
         bottom: 1em;
         position: absolute;
         z-index: 100;
-        overflow-y: scroll;
+        overflow-y: hidden;
         overflow-x: hidden;
         background-color: white;
         opacity: 0.9;
@@ -67,9 +68,16 @@
 
     p { margin-bottom: 1em; } 
 
-    .cover { width: 100%; height: 100%; position: absolute; background-color: white; z-index:120; }
-    .invisible { display: none; }
+    .cover { width: 120%; height: 4000px; position: absolute; background-color: white; z-index:120;
 
+    }
+
+    .invisible { display: none; }
+    .scrollable { overflow-y: scroll; }
+
+    .invisible ~ .scroll-overlay {
+        overflow-y: scroll;
+    }
  </style>
 </head>
 <body > 
@@ -105,14 +113,17 @@
   </div>
  </div>
             </div>
+
  <div class="scroll-overlay" >
-     <div class="cover" onClick="this.classList.add('invisible');">Klick!</div>
+ <div class="cover" onClick="this.classList.add('invisible');document.querySelector('.scroll-overlay').classList.add('scrollable');">
+     Klick mich!
+ </div>
                 <div class="observerbar">
 
                 <!-- Doku: https://marked.js.org/ -->
                 <textarea  data-marked>
 
-## Übung! 
+## Er übt nur 
 
 Dein Lakai hat mal wieder etwas erfunden. Heute morgen lag es ganz demonstrativ auf dem Tablett mit dem Kaffee und dem 
 frischen Croissant. Natürlich hast Du das Ding ignoriert und ein bisschen mehr als nötig auf die Bettdecke gekrümelt. 
@@ -396,7 +407,9 @@ Du überlegst. Mittagsschlaf ist jetzt das Richtig.
             embedded: true,
             controls: false,
             progress: false, 
-            transition: "fade",
+            touch: false,
+            transition: "slide",
+            keyboard: false,
             plugins: [ RevealMarkdown ]
         });
 
