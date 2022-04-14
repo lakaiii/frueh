@@ -7,8 +7,10 @@ SHELL := /bin/bash
 
 
 dev: ## start dev environment
-	termfloat multitail  -l 'cd html; python -m http.server'  -l 'click-reload.sh html' -l 'chromium http://localhost:8000/story.html#tm.md'
-	vim html/tm.md
+	export PORT_NUMBER=$$((1024+($$RANDOM % (65535-1024))))
+	termfloat multitail -l 'cd html; python -m http.server '$$PORT_NUMBER \
+		      -l 'cd html; click-reload.sh . "echo reload"' \
+			  -l 'chromium http://localhost:'$$PORT_NUMBER'/geuebt.html'
 
 
 # help prints out lines with double # 

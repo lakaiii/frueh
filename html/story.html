@@ -16,8 +16,15 @@
       a.disabled:hover {
         cursor: not-allowed;
       }
-      h1, h2 { font-size: 100%; font-weight: normal;  }
+      h1, h2 { font-size: 120%; font-weight: bold;  }
+
+      img {  width: 200px; z-index: -100; opacity: 0.5; 
+            float: right; 
+      }
       
+      img:hover {  opacity: 0.75;
+      }
+
       .hilight { animation: blink 1.5s ease-in-out 1;  }
 
       @keyframes blink {
@@ -56,6 +63,7 @@
       .fixed {
           padding: 0.5em;
           position: absolute;
+          left: 80vw;
           width: 30vw;
           z-index: -100;
       }
